@@ -2,9 +2,8 @@ _[< back to index](README.md)_
 
 ## Integration testing of chef cookbooks
 
-To do:
-- avoid kitchen specific recipes
-- custom run list
-- mocking out node attributes
-- testing custom resources
-- solving cookbook dependencies
+#### Integration testing cookbook with chef
+
+
+#### Avoid using kitchen-specific recipes and attributes
+Use kitchen file to define test setup, not recipes

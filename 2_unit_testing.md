@@ -45,14 +45,39 @@ describe 'simple test' do
 end
 ```
 
-### Chefspec
+### Chefspec (part of chef dk)
 From [chef docs](https://docs.chef.io/chefspec.html)
 >ChefSpec is a framework that tests resources and recipes as part of a simulated chef-client run. ChefSpec tests execute very quickly. When used as part of the cookbook authoring workflow, ChefSpec tests are often the first indicator of problems that may exist within a cookbook.
 
+Chefspec is RSpec + chef specific functionality.
+While RSpec is testing framework that provides all needed components for testing ruby code, chefspec provides library of functions and objects specific to chef allowing for easy testing chef resources, notifications, working with chef client / server, mocking data bags and so on.
 
-To do:
-* chefspec vs rspec
-* solo runner vs server runner
-* mocking out data bags
-* mocking node attributes
-* testing custom resources
+Example of chefspec test:
+```ruby
+require 'chefspec'
+
+describe 'cookbook::default' do
+  context 'When all attributes are default, on an ubuntu 16.04' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
+      runner.converge(described_recipe)
+    end
+
+    describe 'when my recipe is doing something' do
+        it 'converges successfully' do
+          expect { chef_run }.to_not raise_error
+        end
+    end
+  end
+end
+```
+Example above is executed by rspec, but chefspec provides definition and for ServerRunner and described_recipe.
+
+#### Writing tests in chefspec
+Everything you need and even more can be found in [docs of chefspec](https://github.com/sethvargo/chefspec) with lots of examples.
+
+
+#### Links
+* [Chefspec docs](https://github.com/sethvargo/chefspec)
+* [Chef docs on chefspec](https://docs.chef.io/chefspec.html)
+* [Webinar Writing Great Unit Tests with ChefSpec](https://blog.chef.io/2016/03/31/watch-writing-great-unit-tests-with-chefspec/)
