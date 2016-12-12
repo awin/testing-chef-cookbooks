@@ -80,4 +80,5 @@ Everything you need and even more can be found in [docs of chefspec](https://git
 #### Links
 * [Chefspec docs](https://github.com/sethvargo/chefspec)
 * [Chef docs on chefspec](https://docs.chef.io/chefspec.html)
+* [More chefspec examples](http://michaellihs.github.io/devops/2015/07/28/chefspec.html)
 * [Webinar Writing Great Unit Tests with ChefSpec](https://blog.chef.io/2016/03/31/watch-writing-great-unit-tests-with-chefspec/)
