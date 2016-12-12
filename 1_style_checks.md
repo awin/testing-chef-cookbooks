@@ -21,10 +21,10 @@ Rubocop is detecting issues like:
 
 ##### Using rubocop
 To run rubocop simply execute following command in chef cookbook directory
-```rubocop```
+`rubocop`
 
 To run auto-correct
-```rubocop -a```
+`rubocop -a`
 
 To configure rubocop, create and modify `.rubocop.yml`
 
