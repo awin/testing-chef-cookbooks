@@ -76,6 +76,13 @@ Example above is executed by rspec, but chefspec provides definition and for Ser
 #### Writing tests in chefspec
 Everything you need and even more can be found in [docs of chefspec](https://github.com/sethvargo/chefspec) with lots of examples.
 
+#### Example of rake task for rspec tests
+```ruby
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:rspec) do |task|
+  task.rspec_opts = '--format documentation'
+end
+```
 
 #### Links
 * [Chefspec docs](https://github.com/sethvargo/chefspec)
