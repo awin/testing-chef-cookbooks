@@ -18,10 +18,47 @@ kitchen test all
 ```
 and this can even get more complicated when we want to customize any of this commands.
 
-Now, when using rake (with content the same as on main page) to achieve the same we need to type only:
+Now, when using rake to achieve the same we need to type only:
 `rake test`
 
-Rake file can be user for any type of task, not just for testing, e.g. for updating berks dependencies, uploading cookbook, etc.
+Rake, like make, is only as good as its task definitions, command above is possible when having following Rakefile:
+```ruby
+namespace :style do
+  require 'cookstyle'
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new(:cookstyle) do |task|
+    task.options = ['--fail-level', 'E']
+  end
+
+  require 'foodcritic'
+  FoodCritic::Rake::LintTask.new(:foodcritic) do |task|
+    task.options = { exclude: 'test/fixtures' }
+  end
+end
+task style: ['style:cookstyle', 'style:foodcritic']
+
+namespace :unit do
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:rspec) do |task|
+    task.rspec_opts = '--format documentation'
+  end
+end
+task unit: ['unit:rspec']
+
+namespace :integration do
+  require 'kitchen/rake_tasks'
+  Kitchen::RakeTasks.new
+end
+task integration: %w(integration:kitchen:all)
+
+desc 'Run style checks, unit and integration tests'
+task test: %w(style unit integration)
+
+task default: 'test'
+```
+
+
+Rake file can be used for any type of task, not just for testing, e.g. for updating berks dependencies, uploading cookbook, etc.
 
 ##### Links
 - [Rake docs](https://ruby.github.io/rake/)
